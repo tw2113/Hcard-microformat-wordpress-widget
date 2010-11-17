@@ -1,0 +1,1 @@
+Hcard microformat contact for wordpress. Creates a widget that conditionally displays contact info with proper hcard spans. Intended to be easy for $client to use without messing up the microformat wrappers.
