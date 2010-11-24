@@ -1,3 +1,7 @@
-IN NEED OF TESTING AND SOME WORK
+Hcard microformat contact for wordpress. 
 
-Hcard microformat contact for wordpress. Creates a widget that conditionally displays contact info with proper hcard spans. Intended to be easy for $client to use without messing up the microformat wrappers.
+Creates a widget that conditionally displays contact info with proper hcard microformat wrapping. Intended to be easy for $client to use without messing up the microformat wrappers.
+
+Could use some testing just to double check validity, but should be ready for use.
+
+Only requirements for a valid microformat hcard is one of the name fields filled in.
