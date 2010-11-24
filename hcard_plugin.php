@@ -38,59 +38,73 @@ class hCardWidget extends WP_Widget {
 		$email_address = $instance['email_address'];
 		$telephone = $instance['telephone'];
 
-		echo '<!--begin vcard--><div id="contact info" class="vcard sidebarbox">';
+		echo '<!--begin vcard--><div id="contact_info" class="vcard sidebarbox">';
 
 		/*Insert how to lay out the resulting information when viewing live*/
 		
 		//Names area
-		if ($first_name != '' && $last_name != '') {
-			echo '<p><span class="fn n"><span class="given-name">'.$first_name.'</span> <span class="family-name">'.$last_name.'</span></span></p>';			
-		} else {
-			echo '<p><span class="fn">'.$first_name.$last_name.'</span></p>\n';
+		if (($first_name) || ($last_name)) {
+			$namecheck = 'true';
+			echo '<p><span class="fn n">';
+		}
+		if ($first_name) {
+			echo '<span class="given-name">'.$first_name.'</span>';
+		}	
+		if ($last_name) {
+			echo '<span class="family-name">'.$last_name.'</span>';
+		} 
+		if ($namecheck == 'true') {
+			echo '</span></p>';
 		}
 		
 		//Organization info area
-		if ($business_name != '') {
-			$thebusiness = '<span class="org">'.$business_name.'</span><br/>';
-		} 
-		if ($position_title !='') {
-			$thebusiness .= '<span class="title">'.$position_title.'</span>';
+		if ($business_name)  {
+			echo '<span class="org">'.$business_name.'</span>';
+			if ($position_title) {//check just to see if a <br/> is needed
+				echo '<br/>';
+			}
 		}
-			echo '<p>'.$thebusiness.'</p>';
+		if ($position_title) {
+			echo '<span class="title">'.$position_title.'</span>';
+		}
 		
 		//Address info area
-		//<p class="adr"> is showing up even when shouldn't WORK ON LOGIC IN GENERAL!!!! !empty not working either
-		if ($mailbox_num != '') {
-			$themailingaddr = '<span class="post-office-box">P.O. Box '.$mailbox_num.'</span><br/>';
-		}
-		if ($street != '' && $apt_suite !='') {
-			$themailingaddr .= '<span class="street-address">'.$street.'</span> ';
-		} else {
-			$themailingaddr .= '<span class="street-address">'.$street.'</span><br/>';
-		}
-		if ($apt_suite != '') {
-			$themailingaddr .= '<span class="extended-address">'.$apt_suite.'</span><br/>';
-		}
-		if ($city != '') {
-			$themailingaddr .= '<span class="locality">'.$city.'</span> ';
-		}
-		if ($state != '') {
-			$themailingaddr .= '<span class="region">'.$state.'</span>, ';
-		}
-		if ($zip != '') {
-			$themailingaddr .= '<span class="postal-code">'.$zip.'</span>';
-		}
-		if (!empty($themailingaddr)) {
-		echo '<p class="adr">'.$themailingaddr.'</p>';
-		}
-		if ($email_address != '') {
-			echo '<p><a class="email" type="internet" href="mailto:'.$email_address.'">'.$email_address.'</a><br/>';
-		}
-		if ($telephone != '') {
-			echo '<span class="tel">'.$telephone.'</span></p>';
+		if (($mailbox_num) || ($street) || ($city) || ($state) || ($zip) || ($email_address) || ($telephone) ) {
+		$addresscheck = 'true';
+		echo '<p class="adr">';
 		}
 		
-		echo '</div><!--end vcard-->';
+		if ($mailbox_num) {
+			echo '<span class="post-office-box">P.O. Box '.$mailbox_num.'</span><br/>';
+		}
+		if ($street) {
+			echo '<span class="street-address">'.$street.'</span> ';
+			if ($apt_suite) {//check just to see if a <br/> is needed
+				echo '<br/>';
+			}
+		}
+		if ($apt_suite) {
+			echo '<span class="extended-address">'.$apt_suite.'</span>';
+		}
+		if ($city) {
+			echo '<span class="locality">'.$city.'</span> ';
+		}
+		if ($state) {
+			echo '<span class="region">'.$state.'</span>, ';
+		}
+		if ($zip) {
+			echo '<span class="postal-code">'.$zip.'</span>';
+		}
+		if ($email_address) {
+			echo '<p><a class="email" href="mailto:'.$email_address.'">'.$email_address.'</a><br/>';
+		}
+		if ($telephone) {
+			echo '<span class="tel">'.$telephone.'</span>';
+		}
+		if ($addresscheck == 'true') {
+		echo '</p>';
+		}
+		echo'</div><!--end vcard-->';
 	}
 	
 	function update($new_instance, $old_instance) {
@@ -136,7 +150,7 @@ class hCardWidget extends WP_Widget {
 		$telephone = $instance['telephone']; ?>
 		
 		<!--The form that the user has to enter the data-->
-			<p>All fields are optional. Output based on entered data.</p>
+			<p>Please provide at least one name field (first or last) for hcard validity. The remaining fields are optional. Output based on provided data.</p>
 			<p><label for="<?php echo $this->get_field_id('title'); ?>">Widget Title: <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" placeholder="Title of the widget" type="text" value="<?php echo $title; ?>" /></label></p><!--Widget title-->
 			<p><label for="<?php echo $this->get_field_id('first_name'); ?>">First Name: <input class="widefat" id="<?php echo $this->get_field_id('first_name'); ?>" name="<?php echo $this->get_field_name('first_name'); ?>" placeholder="First name please..." type="text" value="<?php echo $first_name; ?>" /></label></p><!--First name field-->
             <p><label for="<?php echo $this->get_field_id('last_name'); ?>">Last Name: <input class="widefat" id="<?php echo $this->get_field_id('last_name'); ?>" name="<?php echo $this->get_field_name('last_name'); ?>" placeholder="...and then your last name." type="text" value="<?php echo $last_name; ?>" /></label></p><!--Last name field-->
