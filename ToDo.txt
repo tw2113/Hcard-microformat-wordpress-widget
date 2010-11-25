@@ -1,0 +1,1 @@
+Research ways to sniff for <link rel="profile" href="http://microformats.org/profile/hcard"> in the wordpress <head> so it's not added twice.
