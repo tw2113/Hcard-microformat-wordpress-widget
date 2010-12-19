@@ -15,9 +15,9 @@ add_action('wp_head','declare_hcard_profile');
 
 class hCardWidget extends WP_Widget {
 	function hCardWidget() {
-		parent::WP_Widget(false, $name = 'hCardWidget');	
+		parent::WP_Widget(false, $name = 'hCardWidget');
 	}
-	
+
 	function widget($args, $instance) {
 		//Output the widget content
 		extract( $args );
@@ -41,7 +41,7 @@ class hCardWidget extends WP_Widget {
 		echo '<!--begin vcard--><div id="contact_info" class="vcard sidebarbox">';
 
 		/*Insert how to lay out the resulting information when viewing live*/
-		
+
 		//Names area
 		if (($first_name) || ($last_name)) {
 			$namecheck = 'true';
@@ -49,14 +49,14 @@ class hCardWidget extends WP_Widget {
 		}
 		if ($first_name) {
 			echo '<span class="given-name">'.$first_name.'</span>';
-		}	
+		}
 		if ($last_name) {
 			echo '<span class="family-name">'.$last_name.'</span>';
-		} 
+		}
 		if ($namecheck == 'true') {
 			echo '</span></p>';
 		}
-		
+
 		//Organization info area
 		if ($business_name)  {
 			echo '<span class="org">'.$business_name.'</span>';
@@ -67,13 +67,13 @@ class hCardWidget extends WP_Widget {
 		if ($position_title) {
 			echo '<span class="title">'.$position_title.'</span>';
 		}
-		
+
 		//Address info area
 		if (($mailbox_num) || ($street) || ($city) || ($state) || ($zip) || ($email_address) || ($telephone) ) {
 		$addresscheck = 'true';
 		echo '<p class="adr">';
 		}
-		
+
 		if ($mailbox_num) {
 			echo '<span class="post-office-box">P.O. Box '.$mailbox_num.'</span><br/>';
 		}
@@ -95,18 +95,19 @@ class hCardWidget extends WP_Widget {
 		if ($zip) {
 			echo '<span class="postal-code">'.$zip.'</span>';
 		}
+		if ($addresscheck == 'true') {
+		echo '</p>';
+		}
 		if ($email_address) {
 			echo '<p><a class="email" href="mailto:'.$email_address.'">'.$email_address.'</a><br/>';
 		}
 		if ($telephone) {
 			echo '<span class="tel">'.$telephone.'</span>';
 		}
-		if ($addresscheck == 'true') {
-		echo '</p>';
-		}
+
 		echo'</div><!--end vcard-->';
 	}
-	
+
 	function update($new_instance, $old_instance) {
 		//Process and save the widget options
 		$instance = $old_instance;
@@ -129,10 +130,10 @@ class hCardWidget extends WP_Widget {
 		$instance['zip'] = strip_tags($new_instance['zip']);
 		$instance['email_address'] = strip_tags($new_instance['email_address']);
 		$instance['telephone'] = strip_tags($new_instance['telephone']);
-		
+
 		return $instance;
 	}
-	
+
 	function form($instance) {
 		//Output the options form in admin
 		$title = $instance['title'];
@@ -148,7 +149,7 @@ class hCardWidget extends WP_Widget {
 		$zip = $instance['zip'];
 		$email_address = $instance['email_address'];
 		$telephone = $instance['telephone']; ?>
-		
+
 		<!--The form that the user has to enter the data-->
 			<p>Please provide at least one name field (first or last) for hcard validity. The remaining fields are optional. Output based on provided data.</p>
 			<p><label for="<?php echo $this->get_field_id('title'); ?>">Widget Title: <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" placeholder="Title of the widget" type="text" value="<?php echo $title; ?>" /></label></p><!--Widget title-->
@@ -164,10 +165,11 @@ class hCardWidget extends WP_Widget {
 			<p><label for="<?php echo $this->get_field_id('zip'); ?>">Zip code: <input class="widefat" id="<?php echo $this->get_field_id('zip'); ?>" name="<?php echo $this->get_field_name('zip'); ?>" placeholder="What's the zip code?" type="text" value="<?php echo $zip; ?>" /></label></p><!--Zip-->
 			<p><label for="<?php echo $this->get_field_id('email_address'); ?>">Email: <input class="widefat" id="<?php echo $this->get_field_id('email_address'); ?>" name="<?php echo $this->get_field_name('email_address'); ?>" placeholder="What email should people use?" type="email" value="<?php echo $email_address; ?>" /></label></p><!--Email-->
 			<p><label for="<?php echo $this->get_field_id('telephone'); ?>">Telephone: <input class="widefat" id="<?php echo $this->get_field_id('telephone'); ?>" name="<?php echo $this->get_field_name('telephone'); ?>" placeholder="What numbers should people dial?" type="text" value="<?php echo $telephone; ?>" /></label></p><!--Telephone-->
-		
+
 	<?php }
 }
 //register_widget('hCardWidget');
 add_action('widgets_init', create_function('', 'return register_widget("hCardWidget");'));
 
 ?>
+
