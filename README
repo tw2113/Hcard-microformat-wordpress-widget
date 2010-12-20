@@ -1,7 +1,28 @@
-Hcard microformat contact for wordpress. 
+Ideas
+See if can detect doctype & microformat profiles. Possibility: add radio btn options for which html doctype declared. Output based on version chosen. This will be needed for validity with profiles.
 
-Creates a widget that conditionally displays contact info with proper hcard microformat wrapping. Intended to be easy for $client to use without messing up the microformat wrappers.
+     Content scraping slows response time too much, fopen/fread/fclose aren't much better unless I did them wrong. Consider a note about what profile to use and where to put it
+     REGEX!!!!
 
-Could use some testing just to double check validity, but should be ready for use.
+Create a vcf download link below the hcard output. Give toggle option in the widget management area for this. Determine what page the widget is on? May be needed for the vcf download through technorati
+     http://technorati.com/contacts/$URL
 
-Only requirements for a valid microformat hcard is one of the name fields filled in.
+<link rel="profile" href="http://microformats.org/profile/specs" /> <--------- combined profile URI for all non-draft microformats
+
+microformats available for combined profile: hCalendar, hCard, rel-license, rel-nofollow, rel-tag, VoteLinks, XFN, XMDP, XOXO
+html5 pages do link rel profile declarations
+html4 and below need profile declarations on <head>
+
+hcard validator url in the readme.
+
+
+Useful URLs
+Microformats Profile URIs Updated ~ A Blog Not Limited
+
+http://hcard.geekhood.net/
+
+
+Fix me
+First name/Last Name needs a space when just them
+Remove email & telephone from address area
+
