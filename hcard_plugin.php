@@ -8,11 +8,6 @@ Author: Michael Beckwith
 Author URI: http://michaelbox.net
 */
 
-function declare_hcard_profile() {
-echo '<link rel="profile" href="http://microformats.org/profile/hcard">';
-}
-add_action('wp_head','declare_hcard_profile');
-
 class hCardWidget extends WP_Widget {
 	function hCardWidget() {
 		parent::WP_Widget(false, $name = 'hCardWidget');
