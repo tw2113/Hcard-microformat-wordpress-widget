@@ -46,7 +46,7 @@ class hCardWidget extends WP_Widget {
 			echo '<span class="given-name">'.$first_name.'</span>';
 		}
 		if ($last_name) {
-			echo '<span class="family-name">'.$last_name.'</span>';
+			echo '<span class="family-name"> '.$last_name.'</span>';
 		}
 		if ($namecheck == 'true') {
 			echo '</span></p>';
